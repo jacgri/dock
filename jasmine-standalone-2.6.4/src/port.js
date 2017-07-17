@@ -1,0 +1,5 @@
+function Port() {
+}
+
+Port.prototype = {
+}
