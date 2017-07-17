@@ -1,9 +1,19 @@
 function Ship (port) {
-    _currentPort = port
+    this._currentPort = port
 }
 
 Ship.prototype = {
     getCurrentPort: function () {
-        return _currentPort
+        return this._currentPort
+    },
+
+    setSail: function () {
+        this._currentPort = null
+
+        return
+    },
+
+    dock: function (){
+        return this._arrivalPort
     }
-    }
+}
