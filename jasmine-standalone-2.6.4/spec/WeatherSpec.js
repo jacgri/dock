@@ -11,8 +11,8 @@ describe('Weather', function(){
         expect(weather.isStormy()).toBeTruthy()
     })
     it('can be nice', function(){
-        spyOn(Math, 'random').and.returnValue(1)
+       spyOn(Math, 'random').and.returnValue(1)
 
-        expect(weather.isStormy()).toBeFalsy()
-    })
+       expect(weather.isStormy()).toBeFalsy()
+   })
 })

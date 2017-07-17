@@ -1,14 +1,17 @@
 describe('ship', function (){
 
+    var weather
     var port
     var arrivalPort
     var ship 
     
+    
 
     beforeEach(function(){
-        port = new Port()
+        port = new Port(weather)
         arrivalPort = new Port()
         ship = new Ship(port)
+        weather = new Weather()
 
     })
 
@@ -27,5 +30,13 @@ describe('ship', function (){
 
         expect(ship.getCurrentPort()).toEqual(arrivalPort)
 
+    })
+
+    it('doesn\'t set sail in stormy weather', function(){
+        spyOn(weather, 'isStormy').and.returnValue(true)
+
+        expect(function () {
+            ship.setSail()
+        }).toThrowError('cannot sail in stormy weather')
     })
 })
