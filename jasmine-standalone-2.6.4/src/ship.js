@@ -20,7 +20,7 @@ Ship.prototype = {
         return
     },
 
-    dock: function (){
-        return this._arrivalPort
+    dock: function (port){
+       this._currentPort = port
     }
 }
