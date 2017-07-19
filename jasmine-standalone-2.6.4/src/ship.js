@@ -8,12 +8,9 @@ Ship.prototype = {
     },
 
     setSail: function () {
-        console.log (this.getCurrentPort())
-        console.log(this.getCurrentPort().getWeather())
-
-        if(this.getCurrentPort().getWeather().isStormy()){
+            if(this.getCurrentPort().getWeather().isStormy()){
             throw new Error('cannot sail in stormy weather')
-            
+
         }
 
         this._currentPort = null
@@ -22,5 +19,11 @@ Ship.prototype = {
 
     dock: function (port){
        this._currentPort = port
+       
+       port.embark(this)
+       if(port.getShips().length > 8) {
+       throw new Error('cannot dock')
+       }
+       return
     }
 }

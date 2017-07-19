@@ -8,10 +8,10 @@ describe('ship', function (){
     
 
     beforeEach(function(){
+        weather = new Weather()
         port = new Port(weather)
         arrivalPort = new Port()
         ship = new Ship(port)
-        weather = new Weather()
 
     })
 
@@ -20,6 +20,7 @@ describe('ship', function (){
     })
 
     it('can set sail from the port', function(){
+        spyOn(weather, 'isStormy').and.returnValue(false)
         ship.setSail()
 
         expect(ship.getCurrentPort()).toBeFalsy()
@@ -27,7 +28,6 @@ describe('ship', function (){
 
     it('can dock at port', function(){
         ship.dock(arrivalPort)
-
         expect(ship.getCurrentPort()).toEqual(arrivalPort)
 
     })
@@ -38,5 +38,22 @@ describe('ship', function (){
         expect(function () {
             ship.setSail()
         }).toThrowError('cannot sail in stormy weather')
+    })
+
+    it('Instructs the port to embark', function(){
+        spyOn(arrivalPort, 'embark')
+
+        ship.dock(arrivalPort)
+
+        expect(arrivalPort.embark).toHaveBeenCalledWith(ship)
+    })
+    it('doesn\'t dock if port at capacity', function(){
+        for(shipIndex = 0; shipIndex < 8;shipIndex++){
+            ship.dock(arrivalPort)
+        }
+
+        expect(function () {
+            ship.dock(arrivalPort)}).toThrowError('cannot dock')    
+    
     })
 })
